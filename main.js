@@ -15,9 +15,21 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 const controls = new OrbitControls( camera, renderer.domElement );
 const loader = new GLTFLoader();
 
-// Box options
+// lighting
+const sun = new THREE.DirectionalLight();
+sun.position.setLength(1,2,3);
+scene.add(sun);
+
+const ambient = new THREE.AmbientLight(); 
+ambient.intensity = 0.5;
+scene.add(ambient);
+
+/*
+we need three things to make a shape render. we need the geometry and the material nad the mesh
+we use the geomentry and the material to create the mesh
+*/
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+const material = new THREE.MeshStandardMaterial( { color: 0x00ff00 } );
 const cube = new THREE.Mesh( geometry, material );
 scene.add( cube );
 
