@@ -1,6 +1,13 @@
 import * as THREE from 'three'; 
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import Stats from 'three/addons/libs/stats.module.js';
+import GUI from 'lil-gui';
+
+const gui = new GUI();
+
+const stats = new Stats();
+document.body.appendChild(stats.dom)
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -37,10 +44,18 @@ camera.position.z = 5;
 
 // anmiation function
 function animate() {
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+  controls.update();
 	renderer.render( scene, camera );
+  stats.update();
 }
 renderer.setAnimationLoop( animate );
 
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth/ window.innerHeight;
+  camera.updateProjectionMatrix();
+  camera.setSize(window.innerWidth, window.innerHeight);
+});
 
+const folder = gui.addFolder('Cube');
+folder.add(cube.position, 'x', -2, 2, 0.1).name('X Position');
+folder.addColor(cube.material, 'color');
