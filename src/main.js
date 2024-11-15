@@ -22,6 +22,7 @@ const terrain = new Terrain(10, 10);
 scene.add(terrain);
 
 const sun = new THREE.DirectionalLight();
+sun.intensity = 3;
 sun.position.set(1, 2, 3);
 scene.add(sun);
 
@@ -29,12 +30,7 @@ const ambient = new THREE.AmbientLight();
 ambient.intensity = 0.5;
 scene.add(ambient);
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
-
-camera.position.z = 10;
+camera.position.set(10, 2, 10);
 controls.update();
 
 function animate() {
@@ -49,6 +45,10 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-const folder = gui.addFolder('Cube');
-folder.add(cube.position, 'x', -2, 2, 0.1).name('X Position');
-folder.addColor(cube.material, 'color');
+const terrainFolder = gui.addFolder('terrain');
+terrainFolder.add(terrain, 'width', 1, 20, 1).name('Width');
+terrainFolder.add(terrain, 'height', 1, 20, 1).name('Height');
+terrainFolder.addColor(terrain.terrain.material, 'color').name('Color');
+terrainFolder.onChange(() =>{
+  terrain.createTerrain();
+});
