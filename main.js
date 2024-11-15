@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import Stats from 'three/addons/libs/stats.module.js';
 import GUI from 'lil-gui';
+import { Terrain } from './src/Terrain'; 
 
 const gui = new GUI();
 
@@ -21,6 +22,10 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 // Orbit Controls
 const controls = new OrbitControls( camera, renderer.domElement );
 const loader = new GLTFLoader();
+
+// Terrain
+const terrain = new Terrain(10, 10);
+scene.add(terrain);
 
 // lighting
 const sun = new THREE.DirectionalLight();
