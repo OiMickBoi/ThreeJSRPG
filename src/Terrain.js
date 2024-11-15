@@ -18,7 +18,10 @@ export class Terrain extends THREE.Mesh {
       this.terrain.geometry.dispose();
       this.terrain.material.dispose();
     }
-    const terrainMaterial = new THREE.MeshStandardMaterial({color: 0x50a000});
+    const terrainMaterial = new THREE.MeshStandardMaterial({
+      color: 0x50a000,
+      wireframe: true
+    });
     const terrainGeometry = new THREE.PlaneGeometry(this.width, this.height);
     this.terrain= new THREE.Mesh(terrainGeometry, terrainMaterial);
     this.terrain.rotation.x = -Math.PI / 2;
@@ -42,8 +45,11 @@ export class Terrain extends THREE.Mesh {
     
     for (let i = 0; i < this.treeCount; i++) {
       const treeMesh = new  THREE.Mesh(treeGeometry, treeMaterial);
-      treeMesh.rotation.x = Math.PI / 2;
-      treeMesh.position.z = treeHeight / 2;
+      treeMesh.position.set(
+        this.width * Math.random(), 
+        treeHeight / 2,
+        this.height * Math.random()
+      );
 
       this.trees.add(treeMesh);
     }
