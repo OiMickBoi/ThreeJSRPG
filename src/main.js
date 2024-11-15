@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import Stats from 'three/addons/libs/stats.module.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+import { Terrain } from './Terrain';
 
 const gui = new GUI();
 
@@ -17,6 +18,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const controls = new OrbitControls(camera, renderer.domElement);
 
+const terrain = new Terrain(10, 10);
+scene.add(terrain);
+
 const sun = new THREE.DirectionalLight();
 sun.position.set(1, 2, 3);
 scene.add(sun);
@@ -30,7 +34,7 @@ const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
-camera.position.z = 4;
+camera.position.z = 10;
 controls.update();
 
 function animate() {
