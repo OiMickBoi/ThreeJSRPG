@@ -65,8 +65,10 @@ export class Terrain extends THREE.Mesh {
   }
 
   createRocks() {
-    const minRockRadius = 0.2;
-    const maxRockRadius = 0.4;
+    const minRockRadius = 0.1;
+    const maxRockRadius = 0.3;
+    const minRockHeight = 0.5;
+    const maxRockHeight = 0.8;
 
     const rockMaterial = new THREE.MeshStandardMaterial({
       color: 0xb0b0b0,
@@ -80,6 +82,7 @@ export class Terrain extends THREE.Mesh {
 
     for (let i = 0; i < this.rockCount; i++) {
       const radius = minRockRadius + (Math.random() * (maxRockRadius - minRockRadius));
+      const height = minRockHeight + (Math.random() * (maxRockHeight - minRockHeight));
       const rockGeometry = new THREE.SphereGeometry(radius, 6, 5);
       const rockMesh = new THREE.Mesh(rockGeometry, rockMaterial);
       rockMesh.position.set(
@@ -88,6 +91,8 @@ export class Terrain extends THREE.Mesh {
         Math.floor(this.height * Math.random() + 0.5)
       );
 
+      //rockMesh.scale
+      rockMesh.scale.y = height;
       this.rocks.add(rockMesh);
     }
   }
