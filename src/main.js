@@ -30,7 +30,7 @@ const ambient = new THREE.AmbientLight();
 ambient.intensity = 0.5;
 scene.add(ambient);
 
-camera.position.set(17, 2, 4);
+camera.position.set(10, 3, 15);
 controls.update();
 
 function animate() {
