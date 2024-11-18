@@ -15,6 +15,8 @@ export class World extends THREE.Mesh {
     this.createTrees();
     this.createRocks();
     this.createBushes();
+
+    console.log(this.#objectMap);
   }
 
   createTerrain() {
@@ -55,12 +57,15 @@ export class World extends THREE.Mesh {
     this.trees.clear();
 
     for (let i = 0; i < this.treeCount; i++) {
+
       const treeMesh = new THREE.Mesh(treeGeometry, treeMaterial);
 
       const coords = new THREE.Vector2(
         Math.floor(this.width * Math.random()),
         Math.floor(this.height * Math.random())
       )
+
+      if(this.#objectMap.has(`${coords.x}-${coords.y}`)) continue;
 
       treeMesh.position.set(
         coords.x + 0.5,
@@ -70,7 +75,6 @@ export class World extends THREE.Mesh {
 
       this.trees.add(treeMesh);
 
-      //this.#objectMap.set(`${coords.x}-${coords.y}`, treeMesh);
       this.#objectMap.set(`${coords.x}-${coords.y}`, treeMesh);
     }
   }
@@ -102,6 +106,7 @@ export class World extends THREE.Mesh {
         Math.floor(this.width * Math.random()),
         Math.floor(this.height * Math.random())
       )
+      if(this.#objectMap.has(`${coords.x}-${coords.y}`)) continue;
 
       rockMesh.position.set(
         coords.x + 0.5,
@@ -146,6 +151,8 @@ export class World extends THREE.Mesh {
         Math.floor(this.width * Math.random()),
         Math.floor(this.height * Math.random())
       )
+
+      if(this.#objectMap.has(`${coords.x}-${coords.y}`)) continue;
 
       bushMesh.position.set(
         coords.x + 0.5,
