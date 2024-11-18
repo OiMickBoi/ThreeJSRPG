@@ -11,24 +11,63 @@ export class World extends THREE.Mesh {
     this.rockCount = 20;
     this.bushCount = 20;
 
+    this.trees = new THREE.Group(); // a group is a collection of objects so we can group similar meshes
+    this.add(this.trees);
+    this.rocks = new THREE.Group(); // a group is a collection of objects so we can group similar meshes
+    this.add(this.rocks);
+    this.bushes = new THREE.Group(); // a group is a collection of objects so we can group similar meshes
+    this.add(this.bushes);
+
+    this.generate();
+  }
+
+  generate() {
+    this.clear();
     this.createTerrain();
     this.createTrees();
     this.createRocks();
     this.createBushes();
 
-    console.log(this.#objectMap);
   }
 
-  createTerrain() {
+  clear() {
     if (this.terrain) {
       this.terrain.geometry.dispose();
       this.terrain.material.dispose();
       this.remove(this.terrain);
     }
+
+    if (this.trees) {
+      this.trees.children.forEach((tree) => {
+        tree.geometry?.dispose();
+        tree.material?.dispose();
+      })      
+      this.trees.clear();
+    }
+    
+    if (this.rocks) {
+      this.rocks.children.forEach((rock) => {
+        rock.geometry?.dispose();
+        rock.material?.dispose();
+      })      
+      this.rocks.clear();
+    }
+
+    if (this.bushes) {
+      this.bushes.children.forEach((bush) => {
+        bush.geometry?.dispose();
+        bush.material?.dispose();
+      })      
+      this.bushes.clear();
+    }
+
+    this.#objectMap.clear();
+  }
+
+  createTerrain() {
     const terrainMaterial = new THREE.MeshStandardMaterial({
       color: 0x50a000
     });
-
 
     const terrainGeometry = new THREE.PlaneGeometry(
       this.width,
@@ -51,8 +90,6 @@ export class World extends THREE.Mesh {
       flatShading: true
     });
 
-    this.trees = new THREE.Group(); // a group is a collection of objects so we can group similar meshes
-    this.add(this.trees);
 
     this.trees.clear();
 
@@ -90,8 +127,6 @@ export class World extends THREE.Mesh {
       flatShading: true
     });
 
-    this.rocks = new THREE.Group(); // a group is a collection of objects so we can group similar meshes
-    this.add(this.rocks);
 
     this.rocks.clear();
 
@@ -135,10 +170,8 @@ export class World extends THREE.Mesh {
       flatShading: true
     });
 
-    this.bushs = new THREE.Group(); // a group is a collection of objects so we can group similar meshes
-    this.add(this.bushs);
 
-    this.bushs.clear();
+    this.bushes.clear();
 
     for (let i = 0; i < this.bushCount; i++) {
       const radius = minBushRadius + (Math.random() * (maxBushRadius - minBushRadius));
@@ -162,7 +195,7 @@ export class World extends THREE.Mesh {
 
       //bushMesh.scale
       bushMesh.scale.y = height;
-      this.bushs.add(bushMesh);
+      this.bushes.add(bushMesh);
 
       this.#objectMap.set(`${coords.x}-${coords.y}`, bushMesh);
     }
