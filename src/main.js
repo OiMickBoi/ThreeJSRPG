@@ -55,3 +55,4 @@ worldFolder.add(world, 'treeCount', 1, 100, 1).name('Rock Count');
 worldFolder.add(world, 'bushCount', 1, 100, 1).name('Bush Count');
 
 worldFolder.add(world, 'generate').name('Generate');
+

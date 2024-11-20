@@ -17,8 +17,6 @@ export class World extends THREE.Mesh {
     this.add(this.rocks);
     this.bushes = new THREE.Group(); // a group is a collection of objects so we can group similar meshes
     this.add(this.bushes);
-
-    this.generate();
   }
 
   generate() {
@@ -27,7 +25,6 @@ export class World extends THREE.Mesh {
     this.createTrees();
     this.createRocks();
     this.createBushes();
-
   }
 
   clear() {
@@ -201,7 +198,7 @@ export class World extends THREE.Mesh {
     }
   }
 
-}
+}                               //
 
 // Terrain
 //   - Terrain Mesh
